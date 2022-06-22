@@ -13,3 +13,13 @@ class Skill(models.Model):
     
     def __str__(self):
         return self.name
+
+class Certificate(models.Model):
+    course_name = models.CharField(max_length=300)
+    institute_name =  models.CharField(max_length=300)
+    location =  models.CharField(max_length=300)
+    enrollment_date =  models.DateTimeField
+    completion_date = models.DateTimeField
+
+    def __str__(self):
+        return self.course_name  
