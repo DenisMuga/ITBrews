@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from .serializer import TestimonialSerializer
+from .serializer import TestimonialSerializer, ContactSerializer
 from .models import ContactProfile, Testimonial
 # from .permissions import IsAdminOrReadOnly
 
