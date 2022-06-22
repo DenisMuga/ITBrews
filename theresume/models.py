@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 # class Skill(models.Model):
 #     class Meta:
@@ -18,8 +19,13 @@ class Certificate(models.Model):
     course_name = models.CharField(max_length=300)
     institute_name =  models.CharField(max_length=300)
     location =  models.CharField(max_length=300)
-    enrollment_date =  models.DateTimeField
-    completion_date = models.DateTimeField
+    enrollment_date = models.DateField(default='',auto_now_add=False)
+    completion_date = models.DateField(default='',auto_now_add=False)
+    
 
     def __str__(self):
-        return self.course_name  
+        return self.course_name
+
+        
+
+          
