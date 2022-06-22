@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Skill
+from .models import Certificate
 
 # Register your models here.
+admin.site.register(Certificate)
 
-admin.site.register(Skill)
+
