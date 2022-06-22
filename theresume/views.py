@@ -6,10 +6,7 @@ from .serializer import TestimonialSerializer, ContactSerializer
 from .models import ContactProfile, Testimonial
 # from .permissions import IsAdminOrReadOnly
 
-# Create your views here.
-
-def index(request):
-    return render (request, 'index.html', )
+# Create your views here
 
 class TestimonialList(APIView):
     # permission_classes = (IsAdminOrReadOnly,)
