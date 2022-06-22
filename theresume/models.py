@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 
 # Create your models here.
@@ -19,8 +20,8 @@ class Certificate(models.Model):
     course_name = models.CharField(max_length=300)
     institute_name =  models.CharField(max_length=300)
     location =  models.CharField(max_length=300)
-    enrollment_date = models.DateField(default='',auto_now_add=False)
-    completion_date = models.DateField(default='',auto_now_add=False)
+    enrollment_date = models.DateField(auto_now_add=True,editable=False)
+    completion_date = models.DateField(auto_now_add=True,editable=False)
     
 
     def __str__(self):
