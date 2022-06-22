@@ -1,4 +1,5 @@
 .env
 __pycache__
 virtual/
-theresume/migrations
+lorraineauth/migrations
+resume/settings.py

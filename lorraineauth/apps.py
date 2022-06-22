@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class TheresumeConfig(AppConfig):
+class LorraineauthConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'theresume'
+    name = 'lorraineauth'
