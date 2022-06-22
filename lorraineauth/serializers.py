@@ -3,7 +3,14 @@ from django.forms import ValidationError
 
 from rest_framework import serializers
 
-from .models import CustomUser
+from .models import *
+
+class ProfileSerializer(serializers.ModelSerializer):
+    
+
+    class Meta:
+        model = Profile
+        fields = ('user', 'prof_pic', 'bio')
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -16,11 +23,11 @@ class RegistrationSerializer(serializers.ModelSerializer):
         write_only=True
     )
 
-   
+    profile = ProfileSerializer(read_only=True)
     class Meta:
         model = CustomUser
     
-        fields = ['email', 'username', 'f_name','l_name','password']
+        fields = ['email', 'username', 'f_name','l_name','profile','password']
 
     def create(self, validated_data):
         # Use the `create_user` method we wrote earlier to create a new user.
@@ -55,4 +62,3 @@ class LoginSerializer(serializers.Serializer):
             "email":LoggedInCustomUser.email,
             "username":LoggedInCustomUser.username
         }
-

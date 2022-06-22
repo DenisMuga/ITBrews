@@ -24,11 +24,11 @@ class CustomUserManager(BaseUserManager):
         if email is None:
             raise TypeError('Users must have an email address.')
 
-        customuser = self.model(username=username, email=self.normalize_email(email) ,f_name=f_name,l_name=l_name)
-        customuser.set_password(password)
-        customuser.save()
+        customUser = self.model(username=username, email=self.normalize_email(email) ,f_name=f_name,l_name=l_name)
+        customUser.set_password(password)
+        customUser.save()
 
-        return customuser
+        return customUser
 
     def create_superuser(self, username, email, password):
       """
@@ -71,4 +71,11 @@ class Profile(models.Model):
     user = models.OneToOneField(CustomUser,null=True,on_delete=models.CASCADE)
     prof_pic =models.ImageField(blank=True, upload_to='media')
     bio = models.TextField(blank=True, max_length=255 ,default='please update your bio')
+    
+    def __str__(self):
+        return self.f_name
+
+    def save_profile(self):
+        '''Add Profile to database'''
+        self.save()
    
