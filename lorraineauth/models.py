@@ -46,6 +46,7 @@ class CustomUserManager(BaseUserManager):
       customUser.save()
 
       return customUser
+  
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(db_index=True, max_length=255, unique=True)
     f_name = models.CharField(('First Name'), max_length=50, blank=True)
@@ -73,7 +74,7 @@ class Profile(models.Model):
     bio = models.TextField(blank=True, max_length=255 ,default='please update your bio')
     
     def __str__(self):
-        return self.f_name
+        return self.user
 
     def save_profile(self):
         '''Add Profile to database'''

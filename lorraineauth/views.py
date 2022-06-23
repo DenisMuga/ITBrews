@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .renderers import UserJSONRenderer
 from rest_framework.generics import GenericAPIView
+from .models import Profile
 
 # Create your views here.
 class RegistrationAPIView(APIView):
@@ -33,3 +34,66 @@ class LoginAPIView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class ProfileUpdate(GenericAPIView):
+    permission_classes = (AllowAny,)
+    serializer_class = ProfileSerializer
+     
+    def  patch(self, request, username):
+        
+        try:
+            profile = Profile.objects.get(user__username=username)
+        except Exception:
+            return Response({
+            'errors': {
+                'user': ['User does not exist']
+            }
+        }, status=status.HTTP_404_NOT_FOUND)
+            
+        user_name = request.user.username
+        import pdb
+        pdb.set_trace()
+        if user_name != username:
+            return Response({
+            'errors': {
+                'user': ['You do not own this profile']
+            }}, status=status.HTTP_403_FORBIDDEN)
+
+        data = request.data
+
+        serializer = ProfileSerializer(
+            instance=request.user.profile,
+            data=data,
+            partial=True
+        )
+        serializer.is_valid()
+        serializer.save()
+        return Response(
+            {'profile': serializer.data},
+            status=status.HTTP_200_OK
+        )
+        
+    def get(self, request, username):
+        """
+        Endpoint for fetching user data from Profile model
+        """
+        try:
+            profile = Profile.objects.get(user__username=username)
+        except Exception:
+            return Response({
+                'errors': {
+                    'user': ['User does not exist']
+                }
+            }, status=status.HTTP_404_NOT_FOUND)
+       
+      
+        if profile:
+            serializer = ProfileSerializer(
+                profile, context={'request': request},
+                
+            )
+           
+       
+        return Response({
+            'profile': serializer.data
+        }, status=status.HTTP_200_OK)
