@@ -11,6 +11,8 @@ urlpatterns = [
     path('api/contactprofile/', views.ContactList.as_view()),
     path('api/portfolios/', views.PortfolioList.as_view()),
     path('api/blogs/', views.BlogList.as_view()),
+    path('api/medias/', views.MediaList.as_view()),
+    
 
 ]
 
