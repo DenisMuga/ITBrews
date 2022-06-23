@@ -1,4 +1,4 @@
-
+from .backends import JWTAuthentication
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -45,9 +45,9 @@ class LoginAPIView(GenericAPIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 class ProfileUpdate(GenericAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = ProfileSerializer
-    authentication_classes = (TokenAuthentication,SessionAuthentication) 
+    authentication_classes = (JWTAuthentication,) 
      
     def  patch(self, request, username):
         
@@ -61,7 +61,7 @@ class ProfileUpdate(GenericAPIView):
         }, status=status.HTTP_404_NOT_FOUND)
             
         user_name = request.user.username
-    
+        print(user_name)
         if user_name != username:
             return Response({
             'errors': {

@@ -144,11 +144,12 @@ AUTH_USER_MODEL = 'lorraineauth.CustomUser'
 # }
 REST_FRAMEWORK = {
    'DEFAULT_AUTHENTICATION_CLASSES': (
-       'rest_framework.authentication.TokenAuthentication',
+    #    'rest_framework.authentication.TokenAuthentication',
+    #    
+    #    'rest_framework_simplejwt.authentication.JWTAuthentication'
+       'lorraineauth.backends.JWTAuthentication',
        'rest_framework.authentication.SessionAuthentication',
-       'rest_framework_simplejwt.authentication.JWTAuthentication'
+       
    ),
-   'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAdminUser'
-   ),
+   'DEFAULT_PERMISSION_CLASSES': ( 'rest_framework.permissions.IsAdminUser', ),
 }
