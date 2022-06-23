@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import ContactProfile, Testimonial, Skill, Portfolio,Blog, Media
+from ..theresume.models import ContactProfile, Testimonial, Skill, Portfolio,Blog, Media
 
 
 class SkillSerializer(serializers.ModelSerializer):
