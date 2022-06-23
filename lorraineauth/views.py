@@ -1,4 +1,3 @@
-
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -8,6 +7,10 @@ from rest_framework import status
 from .renderers import UserJSONRenderer
 from rest_framework.generics import GenericAPIView
 from .models import Profile
+from rest_framework.authtoken.models import Token
+from .authentication_handlers import *
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+
 
 # Create your views here.
 class RegistrationAPIView(APIView):
@@ -16,11 +19,16 @@ class RegistrationAPIView(APIView):
     serializer_class = RegistrationSerializer
     
     def post(self, request):
+       
+        data = request.data
         user = request.data.get('CustomUser', {})
         serializer = self.serializer_class(data=user)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-
+        
+        # token = AuthTokenHandler.create_auth_token(user)
+        # data["token"] = token.key
+      
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
 class LoginAPIView(GenericAPIView):
@@ -38,6 +46,7 @@ class LoginAPIView(GenericAPIView):
 class ProfileUpdate(GenericAPIView):
     permission_classes = (AllowAny,)
     serializer_class = ProfileSerializer
+    authentication_classes = (TokenAuthentication,SessionAuthentication) 
      
     def  patch(self, request, username):
         
@@ -51,8 +60,7 @@ class ProfileUpdate(GenericAPIView):
         }, status=status.HTTP_404_NOT_FOUND)
             
         user_name = request.user.username
-        import pdb
-        pdb.set_trace()
+    
         if user_name != username:
             return Response({
             'errors': {

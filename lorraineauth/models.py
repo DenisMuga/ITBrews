@@ -3,6 +3,9 @@ from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin
 )
 from django.db import models
+import jwt
+from datetime import datetime, timedelta
+from django.conf import settings
 
 
 
@@ -57,16 +60,32 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
+    
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+    
     objects = CustomUserManager()
 
     def __str__(self):
-        """
-        Returns a string representation of this `User`.
-        This string is used when a `User` is printed in the console.
-        """
         return self.email
+    
+    
+    def token(self):
+        return self.generate_jwt_token()
+
+
+      #generate token using user emailand username .token is generated during signup  
+    def generate_jwt_token(self):
+        user_details = {'email':self.email,'username':self.username}
+        token = jwt.encode(
+            {
+                'user_data':user_details,
+                'exp':datetime.now() + timedelta(hours=24)
+            },settings.SECRET_KEY,algorithm ='HS256'
+        )
+        
+        return token
 
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser,null=True,on_delete=models.CASCADE)

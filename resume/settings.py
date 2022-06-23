@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'lorraineauth',
     
 ]
@@ -134,3 +135,18 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'lorraineauth.CustomUser'
+# REST_FRAMEWORK = {
+#   'DEFAULT_AUTHENTICATION_CLASSES': (
+     
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     )
+ 
+# }
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+    
+}
