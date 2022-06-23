@@ -104,6 +104,7 @@ class BlogList(APIView):
 
 # Create your views here.
 class CertificateViewSet(ModelViewSet):
+    permission_classes = (IsAuthenticated,)
     queryset = Certificate.objects.all()
     serializer_class = CertificateSerializer
 
