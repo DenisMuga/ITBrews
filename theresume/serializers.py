@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import ContactProfile, Testimonial, Skill
+from .models import ContactProfile, Testimonial, Skill, Portfolio,Blog
 
 
 class SkillSerializer(serializers.ModelSerializer):
@@ -19,3 +19,13 @@ class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContactProfile
         fields = ( 'timestamp', 'name', 'email', 'message')
+
+class PortfolioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Portfolio
+        fields='__all__'
+
+class BlogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Blog
+        fields='__all__'

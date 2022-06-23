@@ -9,6 +9,9 @@ urlpatterns = [
     path('theresume/<int:pk>/', views.SkillDetail.as_view()),
     path('api/testimonial/', views.TestimonialList.as_view()),
     path('api/contactprofile/', views.ContactList.as_view()),
+    path('api/portfolios/', views.PortfolioList.as_view()),
+    path('api/blogs/', views.BlogList.as_view()),
+
 ]
 
 # urlpatterns = format_suffix_patterns(urlpatterns)
