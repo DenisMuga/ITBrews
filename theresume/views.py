@@ -109,6 +109,21 @@ class PortfolioList(APIView):
 
     def post(self, request, format=None):
         serializers = PortfolioSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, format=None):
+        portfolio_serializer = PortfolioSerializer(data=request.data) 
+        if portfolio_serializer.is_valid(): 
+            portfolio_serializer.save() 
+            return Response(portfolio_serializer.data) 
+        return Response(portfolio_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+    def delete(self, request, format=None):
+        all_portfolios = Portfolio.objects.all().delete()
+        return Response({'message': 'Portfolio was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
         
 class MediaList(APIView):
     permission_classes = (IsAuthenticated,)
