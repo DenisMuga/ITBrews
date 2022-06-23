@@ -14,13 +14,13 @@ urlpatterns = [
     path('theresume/', views.SkillList.as_view()),
     path('theresume/<int:pk>/', views.SkillDetail.as_view()),
     path('api/testimonial/', views.TestimonialList.as_view()),
+    path('api/testimonial/<int:pk>', views.TestimonialDetail.as_view()),
     path('api/contactprofile/', views.ContactList.as_view()),
     path('api/portfolios/', views.PortfolioList.as_view()),
     path('api/blogs/', views.BlogList.as_view()),
     path('api/medias/', views.MediaList.as_view()),
     path('api/',include(router.urls))
     
-
 ]
 
 # urlpatterns = format_suffix_patterns(urlpatterns)

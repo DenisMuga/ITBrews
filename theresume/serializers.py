@@ -14,12 +14,12 @@ class SkillSerializer(serializers.ModelSerializer):
 class TestimonialSerializer(serializers.ModelSerializer):
     class Meta:
         model = Testimonial
-        fields = ( 'name', 'thumbnail', 'role', 'quote', 'is_active')
+        fields = ( 'id', 'name', 'thumbnail', 'role', 'quote', 'is_active')
 
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContactProfile
-        fields = ( 'timestamp', 'name', 'email', 'message')
+        fields = ( 'id', 'timestamp', 'name', 'email', 'message')
 
 class PortfolioSerializer(serializers.ModelSerializer):
     class Meta:
