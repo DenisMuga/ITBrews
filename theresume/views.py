@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Portfolio, Blog
 from rest_framework import status
-from rest_framework.parsers import JSONParser 
+
 
 # Create your views here.
 class PortfolioList(APIView):
@@ -19,6 +19,15 @@ class PortfolioList(APIView):
             serializers.save()
             return Response(serializers.data, status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, format=None):
+        portfolio_serializer = PortfolioSerializer(data=request.data) 
+        if portfolio_serializer.is_valid(): 
+            portfolio_serializer.save() 
+            return Response(portfolio_serializer.data) 
+        return Response(portfolio_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+
     
     def delete(self, request, format=None):
         all_portfolios = Portfolio.objects.all().delete()
@@ -37,6 +46,14 @@ class BlogList(APIView):
             serializers.save()
             return Response(serializers.data, status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, format=None):
+        blog_serializer = BlogSerializer(data=request.data) 
+        if blog_serializer.is_valid(): 
+            blog_serializer.save() 
+            return Response(blog_serializer.data) 
+        return Response(blog_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
 
     def delete(self, request, format=None):
         all_portfolios = Blog.objects.all().delete()
