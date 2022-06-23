@@ -1,7 +1,6 @@
 from django.db import models
-from slugify import slugify
-from djrichtextfield.models import RichTextField
-
+from django.template.defaultfilters import slugify
+from ckeditor.fields import RichTextField
 
 
 
