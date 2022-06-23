@@ -27,13 +27,10 @@ class PortfolioList(APIView):
             return Response(portfolio_serializer.data) 
         return Response(portfolio_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
 
-
-    
     def delete(self, request, format=None):
         all_portfolios = Portfolio.objects.all().delete()
         return Response({'message': 'Portfolio was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
 
-    
 class BlogList(APIView):
     def get(self, request, format=None):
         all_blogs = Blog.objects.all()
