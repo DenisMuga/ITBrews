@@ -75,7 +75,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.generate_jwt_token()
 
 
-      #generate token using user emailand username .token is generated during signup  
+       
     def generate_jwt_token(self):
         user_details = {'email':self.email,'username':self.username}
         token = jwt.encode(
