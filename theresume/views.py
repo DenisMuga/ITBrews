@@ -17,13 +17,6 @@ class TestimonialList(APIView):
         serializers = TestimonialSerializer(all_testimonials, many=True)
         return Response(serializers.data)
     
-    # To get a particular testimonial
-    def get_testimonial(self, pk):
-        try:
-            return Testimonial.objects.get(pk=pk)
-        except Testimonial.DoesNotExist:
-            return Http404
-    
     # To post testimonials
     def post(self, request, format=None):
         serializers = TestimonialSerializer(data=request.data)
@@ -44,6 +37,37 @@ class TestimonialList(APIView):
     def delete(self, request, format=None):
         all_testimonials = Testimonial.objects.all().delete()
         return Response({'message': 'Testimonials were deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+
+class TestimonialDetail(APIView):
+    def get_Testimonial(self, pk):
+        try:
+            return Testimonial.objects.get(pk=pk)
+        except Testimonial.DoesNotExist:
+            return Http404
+
+    # To get a particular testimonial
+    def get(self, request, pk, format=None):
+        testimonial = self.get_Testimonial(pk)
+        serializers = TestimonialSerializer(testimonial)
+        return Response(serializers.data)
+    
+    # To update a particular testimonial
+    def put(self, request, pk, format=None):
+        testimonial = self.get_Testimonial(pk)
+        serializers = TestimonialSerializer(testimonial, request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data)
+        else:
+            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    # To get delete a particular testimonial
+    def delete(self, request, pk, format=None):
+        testimonial = self.get_Testimonial(pk)
+        testimonial.delete()
+        return Response({'message': 'Testimonial was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+
+
 
 class ContactList(APIView):
     # permission_classes = (IsAdminOrReadOnly,)
