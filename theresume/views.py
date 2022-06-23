@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -10,16 +11,18 @@ from rest_framework.parsers import JSONParser
 # Create your views here.
 
 class SkillList(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer
     
 class SkillDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer
 
 
 class TestimonialList(APIView):
-    # permission_classes = (IsAdminOrReadOnly,)
+    permission_classes = (IsAuthenticated,)
     def get(self, request, format=None):
         all_testimonials = Testimonial.objects.all()
         serializers = TestimonialSerializer(all_testimonials, many=True)
@@ -29,6 +32,7 @@ class TestimonialList(APIView):
         serializers = TestimonialSerializer(data=request.data)
         
 class PortfolioList(APIView):
+    permission_classes = (IsAuthenticated,)
     def get(self, request, format=None):
         all_portfolios = Portfolio.objects.all()
         serializers = PortfolioSerializer(all_portfolios, many=True)
@@ -38,6 +42,7 @@ class PortfolioList(APIView):
         serializers = PortfolioSerializer(data=request.data)
         
 class MediaList(APIView):
+    permission_classes = (IsAuthenticated,)
     def get(self, request, format=None):
         all_medias = Media.objects.all()
         serializers = MediaSerializer(all_medias, many=True)
@@ -50,7 +55,7 @@ class MediaList(APIView):
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class ContactList(APIView):
-    # permission_classes = (IsAdminOrReadOnly,)
+    permission_classes = (IsAuthenticated,)
     def get(self, request, format=None):
         all_contacts = ContactProfile.objects.all()
         serializers = ContactSerializer(all_contacts, many=True)
@@ -65,6 +70,7 @@ class ContactList(APIView):
 
     
 class BlogList(APIView):
+    permission_classes = (IsAuthenticated,)
     def get(self, request, format=None):
         all_blogs = Blog.objects.all()
         serializers = BlogSerializer(all_blogs, many=True)
