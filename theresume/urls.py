@@ -1,8 +1,14 @@
-from django.urls import path
+from django.urls import path,include
 from rest_framework.urlpatterns import format_suffix_patterns
 from theresume import views
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework.routers import DefaultRouter
+from .views import *
+
+router=DefaultRouter()
+
+router.register('certificate',CertificateViewSet),
 
 urlpatterns = [
     path('theresume/', views.SkillList.as_view()),
@@ -12,6 +18,7 @@ urlpatterns = [
     path('api/portfolios/', views.PortfolioList.as_view()),
     path('api/blogs/', views.BlogList.as_view()),
     path('api/medias/', views.MediaList.as_view()),
+    path('api/',include(router.urls))
     
 
 ]

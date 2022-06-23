@@ -7,6 +7,9 @@ from rest_framework import status
 from .serializers import TestimonialSerializer, ContactSerializer, SkillSerializer, PortfolioSerializer, BlogSerializer, MediaSerializer
 from .models import ContactProfile, Testimonial, Skill, Portfolio, Blog, Media
 from rest_framework.parsers import JSONParser 
+from .models import Certificate
+from rest_framework.viewsets import ModelViewSet
+from .serializers import CertificateSerializer
 
 # Create your views here.
 
@@ -97,3 +100,13 @@ class BlogList(APIView):
     def delete(self, request, format=None):
         all_medias = Media.objects.all().delete()
         return Response({'message': 'Media was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+
+
+# Create your views here.
+class CertificateViewSet(ModelViewSet):
+    queryset = Certificate.objects.all()
+    serializer_class = CertificateSerializer
+
+# class CertificateViewSet(ModelViewSet):
+#     queryset = Certificate.objects.all()
+#     serializer_class = CertificateSerializer    

@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from theresume.models import ContactProfile, Testimonial, Skill, Portfolio,Blog, Media
+
+from theresume.models import ContactProfile, Testimonial, Skill, Portfolio,Blog, Media,Certificate
 
 
 class SkillSerializer(serializers.ModelSerializer):
@@ -34,3 +35,9 @@ class MediaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Media
         fields='__all__'
+        
+class CertificateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Certificate
+        fields = '__all__'

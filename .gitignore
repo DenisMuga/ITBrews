@@ -4,3 +4,5 @@ virtual/
 theresume/migrations
 lorraineauth/migrations
 resume/settings.py
+
+*.pyc
